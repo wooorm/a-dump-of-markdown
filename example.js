@@ -1,11 +1,13 @@
 var fs = require("fs");
-var ms = require("ms");
 var m = require("micromark");
+var marky = require("marky");
 
 var doc = fs.readFileSync("markdown.md");
 
-var start = Date.now();
+marky.mark("micromark");
 var x = m(doc);
-console.log("mm:time:", ms(Date.now() - start));
+var entry = marky.stop("micromark");
 
 if (typeof document !== "undefined") document.body.innerHTML = x;
+
+console.log(entry.duration);
